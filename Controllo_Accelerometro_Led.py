@@ -34,10 +34,15 @@ class Control_Accelerometer:
         valore=messaggio['e'][0]['v']
         if valore>val_max:
             print('accendo led verd')
-            Led_verde.pulse
+            Led_verde.on()
+            time.sleep(0.5)
+            Led_verde.off()
+            
         if valore< val_min:
             print('accendo led 2')
-            Led_rosso.pulse
+            Led_rosso.on()
+            time.sleep(0.5)
+            Led_rosso.off()
         
 
         
