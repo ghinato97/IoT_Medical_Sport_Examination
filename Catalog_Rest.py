@@ -102,6 +102,13 @@ class Catalogo():
             chiavi=["deviceName","deviceID","available_resources","end_point","insert_time",'timeStamp']
             val=[deviceName,ID,available_res,end_point,local_time,tempo]
             
+            for i in range(len(self.devicesList)):
+                if self.devicesList[i]['deviceName']== deviceName and self.devicesList[i]['deviceID']==ID:
+                    print('Device already registred')
+                    return 0
+        
+            
+            
             dizionario = dict(zip(chiavi,val))
             self.cat['devicesList'].append(dizionario)
             with open('Catalog.json','w') as output:
