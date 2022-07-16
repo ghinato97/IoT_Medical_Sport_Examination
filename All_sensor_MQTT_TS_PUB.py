@@ -2,6 +2,7 @@ from Sensori_Aggiornamento_Catalogo import *
 from Accelerometro_Sensore_Prova import *
 from Pulsossimetro import *
 from MyMQTT_TS import *
+from MyMQTT import *
 import time
 import json
 
@@ -10,6 +11,7 @@ class Sensors_Run:
     def __init__(self):
         conf=json.load(open("Catalog.json",'r'))
         broker=conf["broker"]['IpAddress']
+        broker_TS=conf["broker"]['IpAddress_TS']
         port=conf["broker"]['port']
         
         username=conf['thingSpeak']["username"]
@@ -20,7 +22,9 @@ class Sensors_Run:
         Sensors_Update()
 
         self.topic='channels/'+str(1789105)+'/publish'
-        self.client=MyMQTT(clientID,broker,port,username,password,None)
+        self.topic_='IoT_Polito_Project/Sensor/Accelerometer'
+        self.client=MyMQTT(clientID,broker_TS,port,username,password,None)
+        self.client_=MyMQTT_('Accelerometer',broker,port,None)
         
         
 
@@ -29,9 +33,11 @@ class Sensors_Run:
             
     def start (self):
         self.client.start()
+        self.client_.start()
 
     def stop (self):
         self.client.stop()
+        self.client_.stop()
         
         
     def publish(self):
@@ -39,11 +45,12 @@ class Sensors_Run:
         time_start=time.time()
         self.start()
         
-        while (time.time()-time_start)<=100:
-            time.sleep(15)
+        while (time.time()-time_start)<=100000:
+            time.sleep(1)
             x=Accelerometro(random.randint(10,40))
             message=json.loads(x.Misura())        
             val=message['e'][0]['v']
+            self.client_.myPublish(self.topic_, message)
             
             sensor=Pulsossimetro()        
             message=json.loads(sensor.battito())
@@ -63,6 +70,7 @@ class Sensors_Run:
         
 if __name__=='__main__':
     x=Sensors_Run()
+    time.sleep(3)
     x.publish()
 
         
