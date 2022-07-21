@@ -4,7 +4,9 @@ from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 from pprint import pprint
 from All_sensor_MQTT_TS_PUB import *
 from Make_Plot_Telegram import *
+from Controllo_Emergency_Button import *
 from threading import Thread
+
 import os
 import time
 import requests
@@ -16,7 +18,6 @@ import telepot
 class IoT_bot():
     def __init__(self,token,channelID):        
         self.bot=telepot.Bot(token)
-        # MessageLoop(self.bot,self.handle).run_as_thread()
         MessageLoop(self.bot, {'chat': self.handle,
                                'callback_query': self.on_callback_query}).run_as_thread()
         
@@ -26,6 +27,15 @@ class IoT_bot():
         self.flag_log_name=0
         self.flag_ins_patient=0
         self.channelID=channelID
+        
+        
+        f=open('Catalog.json','r')
+        cat=json.load(f)   
+        f.close()     
+        self.Api_User=cat["thingSpeak"]["User_Api"]
+        self.Catalog_uri=cat["Catalog_uri"]
+        
+        
 
         
         # f=open('Catalog.json','r')
@@ -41,7 +51,7 @@ class IoT_bot():
     def handle(self,msg):
         content_type,chat_type,chat_id=telepot.glance(msg)
         if content_type=="text":
-            if msg["text"]=="/start":
+            if msg["text"]=="/start" or msg["text"]=="/logout":
                                
                 self.flag_create=0
                 self.flag_login=0
@@ -60,10 +70,10 @@ class IoT_bot():
                 self.nome_cognome=""
                 
                 keyboard = InlineKeyboardMarkup(inline_keyboard=[
-               [InlineKeyboardButton(text=f'Login 🔓', callback_data='press_login')],
+               [InlineKeyboardButton(text=f'Login 👥', callback_data='press_login')],
                [InlineKeyboardButton(text=f'Create New Account 📝', callback_data='press_create')]
                    ])
-                self.bot.sendMessage(chat_id, 'Welcome to MeXa, login or create a new account', reply_markup=keyboard)
+                self.bot.sendMessage(chat_id, 'Welcome to MeXa 🏥\nLogin or create a new account', reply_markup=keyboard)
             
                 
             if self.flag_create==1 and self.flag_ins_patient==0:
@@ -84,22 +94,35 @@ class IoT_bot():
                 
     def on_callback_query(self,msg):
         query_id, chat_id, query_data = telepot.glance(msg, flavor='callback_query')
+        
         if query_data=="press_login":
-            self.bot.sendMessage(chat_id,text='Insert your Name and Surname (example Mario,Rossi)')
+            self.bot.sendMessage(chat_id,text='Please insert your Name and Surname (example Mario,Rossi) 👩‍⚕️👨‍⚕️')
             self.flag_login=1
+            
+            
         if query_data=="press_create":
-            self.bot.sendMessage(chat_id, text='Insert your Name and Surname (example Mario,Rossi)')
+            self.bot.sendMessage(chat_id, text='Insert your Name and Surname (example Mario,Rossi) 👩‍⚕️👨‍⚕️')
             self.flag_create=1
+            
+            
         if query_data=="insert_patient":
-            self.bot.sendMessage(chat_id, text='Insert Patient Name ')
+            self.bot.sendMessage(chat_id, text='Insert Patient Name and Surname (example Mario,Rossi) 🏃🏃‍♀️')
             self.flag_ins_patient=1
+            
+            
         if query_data=="start_session":
-            self.bot.sendMessage(chat_id, text='Session started ,please attend')
+            self.bot.answerCallbackQuery(query_id,text='⏳ Session started ,please attend ⏳')
+            # self.bot.sendMessage(chat_id, text='Session started ,please attend')
             x=Sensors_Run()
+            y=Controllo_emergency(chat_id)
+            
+            session_thread_=Thread(target=y.start())
+            session_thread_.start()
+            
             session_thread = Thread(target=x.publish())
             session_thread.start()
             session_thread.join()
-            self.bot.sendMessage(chat_id, text='Session ended')
+            
             
             url='https://api.thingspeak.com/channels/'+ str(self.channelID)+'/feeds.csv'
             r=requests.get(url)
@@ -108,22 +131,70 @@ class IoT_bot():
                 file.write(r.text)
                 
             Make_Plot(self.path)
+            
+            
+            url='https://api.thingspeak.com/channels/'+ str(self.channelID)+'/feeds.json'
+            
+            parametri={"apikey":self.Api_User}
+            r=requests.delete(url,params=parametri)
                 
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
-           [InlineKeyboardButton(text=f'Show Data plot', callback_data='data_plot')]])
-            self.bot.sendMessage(chat_id, 'Che facciamo?', reply_markup=keyboard)
+           [InlineKeyboardButton(text=f'📊 All Data plot', callback_data='data_plot')],
+           [InlineKeyboardButton(text=f'🫀 Heart Rate plot', callback_data='heart_plot')],
+           [InlineKeyboardButton(text=f'〰️ Perfusion plot', callback_data='pulso_plot')],        
+           [InlineKeyboardButton(text=f'🩸Saturation plot', callback_data='satu_plot')],
+           [InlineKeyboardButton(text=f'🏃🏽‍♂️ Accelerometer plot', callback_data='acc_plot')], 
+           [InlineKeyboardButton(text=f'🔙', callback_data='back')]
+            ])
+            self.bot.sendMessage(chat_id, 'Session Complete !', reply_markup=keyboard)
+            # y.stop()
+            
+            
+            
+            
          
         if query_data=="data_plot":
             self.bot.sendPhoto(chat_id,open(self.path+'/accelerometer.png','rb'))
             self.bot.sendPhoto(chat_id,open(self.path+'/heart_rate.png','rb'))
             self.bot.sendPhoto(chat_id,open(self.path+'/saturation.png','rb'))
             self.bot.sendPhoto(chat_id,open(self.path+'/perfusion.png','rb'))
-     
-                
-          
-
+        
+        if query_data=='log_out':
+            self.flag_create=0
+            self.flag_login=0
+            self.flag_c_name=0
+            self.flag_log_name=0
+            self.flag_ins_patient=0
             
+            self.message=""
+            self.create_name=""
+            self.create_surname=""
+            self.create_password=""
+            self.log_name=""
+            self.log_surname=""
+            self.log_password=""
+            self.nome_cognome_patiente=""
+            self.nome_cognome=""
             
+            keyboard = InlineKeyboardMarkup(inline_keyboard=[
+           [InlineKeyboardButton(text=f'Login 👥', callback_data='press_login')],
+           [InlineKeyboardButton(text=f'Create New Account 📝', callback_data='press_create')]
+               ])
+            self.bot.sendMessage(chat_id, 'Welcome to MeXa 🏥\nLogin or create a new account', reply_markup=keyboard)
+        
+        if query_data=='back':
+            testo="Welcome "+self.log_name
+            keyboard = InlineKeyboardMarkup(inline_keyboard=[
+           [InlineKeyboardButton(text=f'➕ Insert new patient', callback_data='insert_patient')],
+           [InlineKeyboardButton(text=f'📁 See old patient data', callback_data='old_patient')],
+           [InlineKeyboardButton(text=f'⭕️ Log out', callback_data='log_out')],
+               ])
+            self.bot.sendMessage(chat_id,'✅'+ testo , reply_markup=keyboard)
+        
+        
+        if query_data=='old_patient':
+            print('yo')
+    
     
     def Create_Account(self,chat_id):
         if self.flag_c_name==0:
@@ -132,14 +203,14 @@ class IoT_bot():
             if len(x)==2:
                 self.log_name=x[0]
                 self.log_surname=x[1]
-                self.bot.sendMessage(chat_id, text='Insert your password')
+                self.bot.sendMessage(chat_id, text='Insert your password🔐')
                 print(self.log_name)
                 print(self.log_surname)
         else:
             self.create_password=self.message
             print(self.log_password)
             
-            url='http://127.0.0.1:8090/add/user'        
+            url=self.Catalog_uri+'/add/user'        
             chiavi=["userName","userSurname","password","patientList"]
             val=[self.log_name,self.log_surname,self.create_password]    
             dizionario = dict(zip(chiavi,val))        
@@ -154,18 +225,19 @@ class IoT_bot():
             self.flag_create=0
             self.flag_c_name=0
             
-            testo="Welcome "+self.create_name
-            self.bot.sendMessage(chat_id, text=testo)
+            testo="✅Account Created!\nWelcome "+self.log_name
+           
             
             keyboard = InlineKeyboardMarkup(inline_keyboard=[
-           [InlineKeyboardButton(text=f'New Patient', callback_data='insert_patient')]])
-            self.bot.sendMessage(chat_id, 'Che facciamo?', reply_markup=keyboard)
+           [InlineKeyboardButton(text=f'➕ Insert new Patient', callback_data='insert_patient')]])
+            self.bot.sendMessage(chat_id, testo, reply_markup=keyboard)
             
         
     def Login_Account(self,chat_id):
                 
         f=open('Catalog.json','r')
         cat=json.load(f)   
+        f.close()        
         self.Userlist=cat['usersList']
         flag_errore_log=0        
         if self.flag_log_name==0:
@@ -175,7 +247,7 @@ class IoT_bot():
             if len(x)==2:
                 self.log_name=x[0]
                 self.log_surname=x[1]
-                self.bot.sendMessage(chat_id,text='Insert your password')
+                self.bot.sendMessage(chat_id,text='Insert your password 🔐')
                 self.nome_cognome=self.log_surname +'_'+ self.log_name
                 print(self.log_name)
                 print(self.log_surname)
@@ -189,15 +261,19 @@ class IoT_bot():
             for i in range(len(self.Userlist)):
                 if self.Userlist[i]['Name']==self.log_name and self.Userlist[i]['Surname']==self.log_surname and self.Userlist[i]['password']==self.log_password:
                     testo="Welcome "+self.log_name
-                    self.bot.sendMessage(chat_id,text=testo)
                     flag_errore_log=1
                     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                   [InlineKeyboardButton(text=f'New Patient', callback_data='insert_patient')],
-                   [InlineKeyboardButton(text=f' Old Patient', callback_data='old_patient')]
+                   [InlineKeyboardButton(text=f'➕ Insert new patient', callback_data='insert_patient')],
+                   [InlineKeyboardButton(text=f'📁 See old patient data', callback_data='old_patient')],
+                   [InlineKeyboardButton(text=f'⭕️ Log out', callback_data='log_out')],
                        ])
-                    self.bot.sendMessage(chat_id, 'Che facciamo?', reply_markup=keyboard)
-            if flag_errore_log==0:
-                self.bot.sendMessage(chat_id,text="errore credenziali")
+                    self.bot.sendMessage(chat_id,'✅'+ testo , reply_markup=keyboard)
+            if flag_errore_log==0:                
+                keyboard = InlineKeyboardMarkup(inline_keyboard=[
+               [InlineKeyboardButton(text=f'Login 👥', callback_data='press_login')],
+               [InlineKeyboardButton(text=f'Create New Account 📝', callback_data='press_create')]
+                   ])
+                self.bot.sendMessage(chat_id, "❌ errore credenziali ❌", reply_markup=keyboard)
                 
     def Insert_Patient(self,chat_id): 
     
@@ -205,7 +281,7 @@ class IoT_bot():
         self.patient_name=x[0]
         self.patient_surname=x[1]
         self.flag_ins_patient=0
-        url='http://127.0.0.1:8090/add/patient'
+        url=self.Catalog_uri+'/add/patient'
         print(self.log_name)
         print(self.log_surname)
         
@@ -219,11 +295,10 @@ class IoT_bot():
         r=requests.post(url,params=payload,json=payload)
         
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text=f'Start Session', callback_data='start_session')],
-        [InlineKeyboardButton(text=f' Back', callback_data='back')]
+        [InlineKeyboardButton(text=f'🟢 Start Session', callback_data='start_session')],
+        [InlineKeyboardButton(text=f'🔙', callback_data='back')]
             ])
-        self.bot.sendMessage(chat_id, 'Che facciamo?', reply_markup=keyboard)
-        
+        self.bot.sendMessage(chat_id,text= 'Select',reply_markup=keyboard)    
         
         
         

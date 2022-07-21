@@ -14,7 +14,9 @@ class Make_Plot():
         plt.figure(0)
         accelerometro_plot=accelerometro.plot()
         fig=accelerometro_plot.get_figure()
+        plt.ylabel("Acceleration [rpm]")
         fig.savefig(path+'/accelerometer.png')
+        plt.close()
         
         
         battito=data_frame['field2']
@@ -22,7 +24,9 @@ class Make_Plot():
         plt.figure(1)
         battito_plot=battito.plot()
         fig1=battito_plot.get_figure()
+        plt.ylabel("Heart Rate [bpm]")
         fig1.savefig(path+'/heart_rate.png')
+        plt.close()
         
 
         
@@ -31,7 +35,9 @@ class Make_Plot():
         plt.figure(2)
         saturazione_plot=saturazione.plot()
         fig2=saturazione_plot.get_figure()
+        plt.ylabel("Saturation []")
         fig2.savefig(path+'/saturation.png')
+        plt.close()
         
                
 
@@ -41,6 +47,8 @@ class Make_Plot():
         plt.figure(3)
         perfusione_plot=perfusione.plot()
         fig3=perfusione_plot.get_figure()
+        plt.ylabel("Perfusion []")
         fig3.savefig(path+'/perfusion.png')
+        plt.close()
                              
                               

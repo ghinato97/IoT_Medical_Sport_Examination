@@ -1,6 +1,7 @@
 from Sensori_Aggiornamento_Catalogo import *
 from Accelerometro_Sensore_Prova import *
 from Pulsossimetro import *
+from EmergencyButton import *
 from MyMQTT_TS import *
 from MyMQTT import *
 import time
@@ -23,6 +24,7 @@ class Sensors_Run:
 
         self.topic='channels/'+str(1789105)+'/publish'
         self.topic_='IoT_Polito_Project/Sensor/Accelerometer'
+        self.topic_but='IoT_Polito_Project/Sensor/Emergency'
         self.client=MyMQTT(clientID,broker_TS,port,username,password,None)
         self.client_=MyMQTT_('Accelerometer',broker,port,None)
         
@@ -45,12 +47,18 @@ class Sensors_Run:
         time_start=time.time()
         self.start()
         
-        while (time.time()-time_start)<=100000:
+        while (time.time()-time_start)<=30:
             time.sleep(1)
             x=Accelerometro(random.randint(10,40))
             message=json.loads(x.Misura())        
             val=message['e'][0]['v']
             self.client_.myPublish(self.topic_, message)
+            
+            x=EmergencyButton()
+            message=json.loads(x.Button())
+            self.client_.myPublish(self.topic_but, message)
+            
+            
             
             sensor=Pulsossimetro()        
             message=json.loads(sensor.battito())
