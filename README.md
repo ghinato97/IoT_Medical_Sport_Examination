@@ -1,6 +1,7 @@
 # Table of Contents
 * [General Info](#general-info)
-* [Set Up](#set-up)
+* [Technologies](#technologies)
+* [Set- up](#set-up)
 
 
 ## General Info
@@ -15,6 +16,16 @@ It integrates different IoT devices that provide us patient’s data such as:
 - Rpm
 - Also the patient can switch an emergency button if an emergency occurs
 
-## Set Up
+## Technologies
+The project is created using:
+- rasperry Pi 2
+- python 3
+- node red
+- thing speak
+- telegram
+
+## Set-up
+At first yoy
+
 
 
