@@ -31,15 +31,19 @@ The project is created using:
 
 ## Set-up
 To install this project use these commands: 
-
-* $ git clone https://github.com/ghinato97/IoT_Medical_Sport_Examination
-* $ cd ../path/to/the/file
-* $ pip3 install -r requirements.txt 
-* $ python3 M_Catalog_Rest.py
-* $ python3 M_All_Sensor_Call.py
-* $ python3 M_BPM.py
-* $ python3 Mexa_Bot_Telegram.py
-* $ python3 Controllo.py
+```
+$ git clone https://github.com/ghinato97/IoT_Medical_Sport_Examination
+$ cd ../path/to/the/file
+$ pip3 install -r requirements.txt 
+$ python3 M_Catalog_Rest.py
+$ python3 M_All_Sensor_Call.py
+$ python3 M_BPM.py
+$ python3 Mexa_Bot_Telegram.py
+```
+On your raspberry:
+```
+$ python3 Controllo.py
+```
 
  
 
