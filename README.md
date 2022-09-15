@@ -22,16 +22,27 @@ node-red dashboard. At the end of the session he can choose to see the data plot
 
 ## Technologies
 The project is created using:
-- rasperry Pi 2
-- python 3
-- node-red
-- thingspeak
-- telegram
-
+- Rasperry Pi 2
+- Python 3
+- Node-red
+- Thingspeak
+- Telegram
 
 
 ## Set-up
-At first yoy
+To install this project use these commands: 
+
+$ git clone https://github.com/ghinato97/IoT_Medical_Sport_Examination
+$ cd ../path/to/the/file
+$ pip3 install -r requirements.txt 
+$ python3 M_Catalog_Rest.py
+$ python3 M_All_Sensor_Call.py
+$ python3 M_BPM.py
+$ python3 Mexa_Bot_Telegram.py
+$ python3 Controllo.py
+
+ 
+
 
 
 
