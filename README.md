@@ -32,8 +32,8 @@ The project is created using:
 ## Set-up
 To install this project use these commands: 
 
-$ git clone https://github.com/ghinato97/IoT_Medical_Sport_Examination
-$ cd ../path/to/the/file
+* $ git clone https://github.com/ghinato97/IoT_Medical_Sport_Examination
+* $ cd ../path/to/the/file
 $ pip3 install -r requirements.txt 
 $ python3 M_Catalog_Rest.py
 $ python3 M_All_Sensor_Call.py
