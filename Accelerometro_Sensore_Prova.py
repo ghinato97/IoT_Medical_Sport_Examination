@@ -1,6 +1,6 @@
 import json
 import time
-class Accelerometro(object):
+class Accelerometro():
     def __init__(self,acceleration):
        self.accelerazione=acceleration
        self.chiavi=['bn','e']

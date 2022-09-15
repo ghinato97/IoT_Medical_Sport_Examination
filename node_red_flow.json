@@ -1,0 +1,520 @@
+[
+    {
+        "id": "1d6418f92cd3cb0e",
+        "type": "tab",
+        "label": "IoT_Medical_Examination",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a3cf3898f7fbee38",
+        "type": "python3-function",
+        "z": "1d6418f92cd3cb0e",
+        "name": "",
+        "func": "tmp={}\ntmp[\"topic\"]=\"Accelerometer\"\ntmp[\"payload\"]=msg[\"payload\"][\"e\"][0][\"v\"]\nreturn tmp",
+        "outputs": 1,
+        "x": 420,
+        "y": 220,
+        "wires": [
+            [
+                "0287a80bf3818791"
+            ]
+        ]
+    },
+    {
+        "id": "69e2f9590cc2cc6f",
+        "type": "mqtt in",
+        "z": "1d6418f92cd3cb0e",
+        "name": "Accelerometro",
+        "topic": "IoT_Polito_Project/Sensor/Accelerometer",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "64f97902a7268f66",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "a3cf3898f7fbee38"
+            ]
+        ]
+    },
+    {
+        "id": "0287a80bf3818791",
+        "type": "ui_gauge",
+        "z": "1d6418f92cd3cb0e",
+        "name": "Accelerometer",
+        "group": "7781ea91b0fedce0",
+        "order": 3,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Accelerometer",
+        "label": "rpm",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 660,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "c27def154e2b6157",
+        "type": "python3-function",
+        "z": "1d6418f92cd3cb0e",
+        "name": "",
+        "func": "tmp={}\ntmp[\"topic\"]=\"Accelerometer\"\ntmp[\"payload\"]=msg[\"payload\"][\"e\"][0][\"v\"]\nreturn tmp",
+        "outputs": 1,
+        "x": 420,
+        "y": 300,
+        "wires": [
+            [
+                "34c635ef0041b8cf"
+            ]
+        ]
+    },
+    {
+        "id": "1185434f4b62b2c6",
+        "type": "mqtt in",
+        "z": "1d6418f92cd3cb0e",
+        "name": "Heart_Rate",
+        "topic": "IoT_Polito_Project/Sensor/Heart_Rate",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "64f97902a7268f66",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "c27def154e2b6157"
+            ]
+        ]
+    },
+    {
+        "id": "34c635ef0041b8cf",
+        "type": "ui_gauge",
+        "z": "1d6418f92cd3cb0e",
+        "name": "Heart_Rate",
+        "group": "7781ea91b0fedce0",
+        "order": 1,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Heart_Rate",
+        "label": "bpm",
+        "format": "{{value}}",
+        "min": "30",
+        "max": "200",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 650,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6944bc53b185129f",
+        "type": "python3-function",
+        "z": "1d6418f92cd3cb0e",
+        "name": "",
+        "func": "return msg",
+        "outputs": 1,
+        "x": 420,
+        "y": 480,
+        "wires": [
+            [
+                "cc482853bc977407"
+            ]
+        ]
+    },
+    {
+        "id": "b380be04e589ef80",
+        "type": "mqtt in",
+        "z": "1d6418f92cd3cb0e",
+        "name": "BPM respiro",
+        "topic": "IoT_Polito_Project/Sensor/BPM",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "64f97902a7268f66",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 480,
+        "wires": [
+            [
+                "6944bc53b185129f"
+            ]
+        ]
+    },
+    {
+        "id": "cc482853bc977407",
+        "type": "ui_gauge",
+        "z": "1d6418f92cd3cb0e",
+        "name": "Breath Per Minute",
+        "group": "7781ea91b0fedce0",
+        "order": 5,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Breath Per Minute",
+        "label": "BPM",
+        "format": "{{value}}",
+        "min": "5",
+        "max": "80",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 670,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "1f0fe68e318cfbf2",
+        "type": "python3-function",
+        "z": "1d6418f92cd3cb0e",
+        "name": "",
+        "func": "tmp={}\ntmp[\"topic\"]=\"Accelerometer\"\ntmp[\"payload\"]=msg[\"payload\"][\"e\"][0][\"v\"]\nreturn tmp",
+        "outputs": 1,
+        "x": 420,
+        "y": 360,
+        "wires": [
+            [
+                "51837e3c97b256da"
+            ]
+        ]
+    },
+    {
+        "id": "35dee5bed6ae1f44",
+        "type": "mqtt in",
+        "z": "1d6418f92cd3cb0e",
+        "name": "Saturation",
+        "topic": "IoT_Polito_Project/Sensor/Saturation",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "64f97902a7268f66",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "1f0fe68e318cfbf2"
+            ]
+        ]
+    },
+    {
+        "id": "51837e3c97b256da",
+        "type": "ui_gauge",
+        "z": "1d6418f92cd3cb0e",
+        "name": "Saturation",
+        "group": "7781ea91b0fedce0",
+        "order": 11,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Saturation",
+        "label": "SpO2",
+        "format": "{{value}}",
+        "min": "70",
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 650,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "98ae773bd59298d5",
+        "type": "python3-function",
+        "z": "1d6418f92cd3cb0e",
+        "name": "",
+        "func": "tmp={}\ntmp[\"topic\"]=\"Accelerometer\"\ntmp[\"payload\"]=msg[\"payload\"][\"e\"][0][\"v\"]\nreturn tmp",
+        "outputs": 1,
+        "x": 420,
+        "y": 420,
+        "wires": [
+            [
+                "fb3bcd20a92f3995"
+            ]
+        ]
+    },
+    {
+        "id": "0367c70549630436",
+        "type": "mqtt in",
+        "z": "1d6418f92cd3cb0e",
+        "name": "Perfusion",
+        "topic": "IoT_Polito_Project/Sensor/Perfusion",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "64f97902a7268f66",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 420,
+        "wires": [
+            [
+                "98ae773bd59298d5"
+            ]
+        ]
+    },
+    {
+        "id": "fb3bcd20a92f3995",
+        "type": "ui_gauge",
+        "z": "1d6418f92cd3cb0e",
+        "name": "Perfusion",
+        "group": "7781ea91b0fedce0",
+        "order": 13,
+        "width": 4,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Perfusion",
+        "label": "%",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "20",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 640,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "fc0e74a641878233",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "9e8c7f4aeab5a1fa",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "71b418b461c49efa",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 6,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "c8c614512f40e557",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 7,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "f101360606ed643c",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 8,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "82ed5af871636460",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 9,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "a5f6a184e8b750ba",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 10,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "ce0659ba332f5d40",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 12,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "a0093658a526508f",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 14,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "b44904609f185159",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 15,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "39c26c83b894fdf2",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 16,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "bd55935c4e5839fc",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 17,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "469b92d034a02fdb",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 18,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "bc056c25c88c43dd",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 19,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "1fa017fd38e798e1",
+        "type": "ui_spacer",
+        "z": "1d6418f92cd3cb0e",
+        "name": "spacer",
+        "group": "7781ea91b0fedce0",
+        "order": 20,
+        "width": 2,
+        "height": 1
+    },
+    {
+        "id": "64f97902a7268f66",
+        "type": "mqtt-broker",
+        "name": "hivemq",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "7781ea91b0fedce0",
+        "type": "ui_group",
+        "name": "Sensors",
+        "tab": "60aafeb2d0b199b3",
+        "order": 1,
+        "disp": true,
+        "width": 14,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "60aafeb2d0b199b3",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

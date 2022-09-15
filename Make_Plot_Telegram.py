@@ -35,7 +35,7 @@ class Make_Plot():
         plt.figure(2)
         saturazione_plot=saturazione.plot()
         fig2=saturazione_plot.get_figure()
-        plt.ylabel("Saturation []")
+        plt.ylabel("Saturation [SpO2]")
         fig2.savefig(path+'/saturation.png')
         plt.close()
         
@@ -47,8 +47,17 @@ class Make_Plot():
         plt.figure(3)
         perfusione_plot=perfusione.plot()
         fig3=perfusione_plot.get_figure()
-        plt.ylabel("Perfusion []")
+        plt.ylabel("Perfusion [%]")
         fig3.savefig(path+'/perfusion.png')
+        plt.close()
+        
+        temperature=data_frame['field5']
+        temperature=temperature.dropna()
+        plt.figure(4)
+        temperature_plot=perfusione.plot()
+        fig4=temperature_plot.get_figure()
+        plt.ylabel("Temperature [°C]")
+        fig3.savefig(path+'/temperature.png')
         plt.close()
                              
                               

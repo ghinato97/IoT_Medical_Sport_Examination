@@ -1,1 +1,21 @@
-{"thingSpeak": {"username": "IA0kIAMZEQkvEzUvCgc7OSk", "password": "EI3f2BAzpzicVlazeYqUPbnD", "channelID": 1789105, "User_Api": "QCBRKNA5Z64ANK6V"}, "telegramToken": "5523985248:AAGhtJ2ExNKC-TnYVSuTgNkobYsa0ocFGgY", "Catalog_uri": "http://127.0.0.1:8090", "broker": {"IpAddress_TS": "mqtt3.thingspeak.com", "IpAddress": "broker.hivemq.com", "port": 1883}, "devicesList": [{"deviceName": "Accelerometer", "deviceID": 1, "available_resources": ["acceleration"], "end_point": "mqtt", "insert_time": "Thu Jul 21 18:40:26 2022", "timeStamp": 1658421626.340288}, {"deviceName": "Pulsossimeter", "deviceID": 2, "available_resources": ["battito", "perfusione", "saturazione"], "end_point": "MQTT", "insert_time": "Thu Jul 21 18:40:26 2022", "timeStamp": 1658421626.3556623}], "usersList": [{"Name": "Elios", "Surname": "Ghinato", "password": "duce", "patient_list": [{"Name": "Mario", "Surname": "Loi"}]}, {"Name": "Gino", "Surname": "Paoli", "password": "shipsharot96", "patient_list": [{"Name": "Pistorius", "Surname": "merda"}, {"Name": "Piero", "Surname": "dellafrancesca"}]}, {"Name": "Elios", "Surname": "Ghinatooo", "password": "duceeee", "patient_list": [{"Name": "ee", "Surname": "ff"}]}, {"Name": "elis", "Surname": "ghin", "password": "fuce", "patient_list": [{"Name": "fefe", "Surname": "gfd\u00f9"}]}, {"Name": "gghh", "Surname": "dsds", "password": "ffre", "patient_list": [{"Name": "ggjdk", "Surname": "gdfd"}]}, {"Name": "sxsd", "Surname": "dda", "password": "sdss", "patient_list": [{"Name": "dsd", "Surname": "dss"}]}, {"Name": "Dghs", "Surname": "gjjr", "password": "Dieid", "patient_list": [{"Name": "Dbeve", "Surname": "hjrr"}]}, {"Name": "Fueje", "Surname": "gdhe", "password": "Duc", "patient_list": [{"Name": "Dueiw", "Surname": "fuejr"}]}, {"Name": "Shshsj", "Surname": "duue", "password": "Djdj", "patient_list": [{"Name": "Dhdbb#", "Surname": "due"}]}, {"Name": "Fhheg", "Surname": "ghnr", "password": "Dude", "patient_list": [{"Name": "3je9", "Surname": "gdhe"}]}, {"Name": "Dhejejei", "Surname": "duehe", "password": "Dueue", "patient_list": [{"Name": "Djeje", "Surname": "duchxj"}]}, {"Name": "Ndne", "Surname": "\u00f7&&'", "password": "Xhej", "patient_list": [{"Name": "Djee", "Surname": "=\u20ac="}]}]}
+{"broker": {
+		"IpAddress_TS": "mqtt3.thingspeak.com", 
+		"IpAddress": "broker.hivemq.com", 
+		"port": 1883, 
+		"topic": "IoT_Polito_Project/Sensor/"
+		},
+		
+ "thingSpeak": {
+ 		"username": "IA0kIAMZEQkvEzUvCgc7OSk", 
+ 		"password": "EI3f2BAzpzicVlazeYqUPbnD", 
+ 		"channelID": 1789105, 
+ 		"User_Api": "QCBRKNA5Z64ANK6V"}, 
+ 		
+ "telegramToken": "5701264575:AAHwDCbCMX21yE7pmE1k-hoMLwPl1khQwAc", 
+ "Catalog_uri": "http://127.0.0.1:8090", 
+ "url_pub": "http://127.0.0.1:8091", 
+ "url_temp": "http://127.0.0.1:8092", 
+ "Ngrok_url": "https://9e94-95-252-135-21.eu.ngrok.io/ui", 
+ "devicesList": [], 
+ "usersList": []
+ }

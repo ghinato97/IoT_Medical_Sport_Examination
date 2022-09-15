@@ -3,7 +3,7 @@ import time
 import random
 
 
-class Pulsossimetro(object):
+class Pulsossimetro():
        
     def __init__(self):
         self.chiavi=['bn','e']
