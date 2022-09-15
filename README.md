@@ -20,6 +20,12 @@ The big red led is used to warn the patient that the session has started by swit
 The doctor can access real time monitoring of the sensors using the Telegram Bot which provides a link for the 
 node-red dashboard. At the end of the session he can choose to see the data plotting of the sensors for the entire session. All data sensors are stored during the session using Thingspeak. Multiple sessions cannot run simultaneously. 
 
+MeXa IoT Platform - Promo Video
+https://www.youtube.com/watch?v=hCprphnRJ3k
+
+MeXa IoT Platform - Demo Video
+https://www.youtube.com/watch?v=tMEbXAjwmAI
+
 ## Technologies
 The project is created using:
 - Rasperry Pi 2
