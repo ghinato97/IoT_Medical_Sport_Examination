@@ -1,5 +1,5 @@
 {"broker": {"IpAddress_TS": "mqtt3.thingspeak.com", "IpAddress": "broker.hivemq.com", "port": 1883, "topic": "IoT_Polito_Project/Sensor"}, 
-"thingSpeak": {"username": "IA0kIAMZEQkvEzUvCgc7OSk", "password": "EI3f2BAzpzicVlazeYqUPbnD", "channelID": [1789105, 1869608], "User_Api": "QCBRKNA5Z64ANK6V", "url": "https://api.thingspeak.com/channels/"}, "telegramToken": "5701264575:AAHEtI4FRu3uOBVrRzciq_aDm-Ds6g8k1oE", 
+"thingSpeak": {"username": "IA0kIAMZEQkvEzUvCgc7OSk", "password": "EI3f2BAzpzicVlazeYqUPbnD", "channelID": [1789105, 1869608], "User_Api": "QCBRKNA5Z64ANK6V", "url": "https://api.thingspeak.com/channels/"}, "telegramToken": "5510740241:AAHWY4g3UOAOMhX1ZGo-t6tWgomBMiDaR-Y", 
 "Catalog_uri": "http://127.0.0.1:8090", 
 "url_pub": "http://127.0.0.1:8091",
  "url_temp": "http://127.0.0.1:8092", 
