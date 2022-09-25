@@ -71,7 +71,7 @@ class Data_Temp:
                             BPM= int(60/time_diff)
                             topic=self.topic+'/'+str(cha)+'/BPM'
                             self.client.myPublish(topic,BPM)
-                        else:
+                        except:
                             pass
                         
             
