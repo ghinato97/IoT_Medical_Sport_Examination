@@ -1,16 +1,13 @@
 import json
 import time
-from gpiozero import LED,Button
+# from gpiozero import LED,Button
 from Emergency_Button import *
 from MyMQTT import *
-
-
-
-
+import requests
 
 
 class Control:
-    def __init__(self):
+    def __init__(self,kit):
         
         self.Led_verde=LED(2)
         self.Led_verde.off()
@@ -23,16 +20,32 @@ class Control:
         
         self.val_max=30
         self.val_min=20
+        
+        self.kit=kit
 
 
         conf=json.load(open("Catalog.json",'r'))
-        broker=conf["broker"]['IpAddress']
-        port=conf["broker"]['port']
+
+        url_base=conf['Catalog_uri']
         
-        clientID='Control_Accelerometer'
-          
-        self.topic='IoT_Polito_Project/Sensor/Controller'
-        self.topic_pub='IoT_Polito_Project/Sensor/Emergency'
+        url=url_base+'/retrieve/broker'
+        broker=requests.get(url).text
+        
+        url=url_base+'/retrieve/port'
+        port=requests.get(url).text
+        port=int(port)
+        
+        url=url_base+'/retrieve/url_control'
+        self.url_control=requests.get(url).text
+        
+        clientID='Kit_1_projectIoT'
+        
+        url=url_base+'/retrieve/topic'        
+        self.topic_base=requests.get(url).text
+        
+        self.topic=self.topic_base+'/#'
+        
+        self.topic_pub=self.topic_base+'/Emergency'
         self.client=MyMQTT_(clientID,broker,port,self)
         
     def start(self):
@@ -45,32 +58,42 @@ class Control:
     def notify(self,topic,msg):
         messaggio=json.loads(msg)
         valore=messaggio['e'][0]['v']
-        nome=messaggio['e'][0]['n']
+        x=topic.split("/")
+        kit=int(x[3])
+        tipo=x[4]
         
-        if nome=='Status':
-            if valore==1:        
-                self.Led_start.on() 
-            if valore==0:
-                self.Led_start.off()
-        if nome=='Acceleration':
-            if valore>self.val_max:
-                self.Led_rosso.on()
-                time.sleep(1)
-                self.Led_rosso.off()
-                time.sleep(1)
+        if kit==self.kit:
+        
+            if tipo=='Controller':
+                if valore==1:     
+                    self.Led_start.on() 
+                    print('start')
+                if valore==0:
+                    self.Led_start.off()
+                    print('stop')
+            elif tipo=='Accelerometer':
+                if valore>int(self.val_max):
+                    self.Led_rosso.on()
+                    time.sleep(1)
+                    self.Led_rosso.off()
+                    time.sleep(1)
+                    print('up')
+                    
+                if valore<int(self.val_min):
+                    self.Led_verde.on()
+                    time.sleep(1)
+                    self.Led_verde.off()
+                    time.sleep(1)
+                    print('down')
                 
-            if valore< self.val_min:
-                self.Led_verde.on()
-                time.sleep(1)
-                self.Led_verde.off()
-                time.sleep(1)
                     
     def publish(self):                      
         x=EmergencyButton()
         message=json.loads(x.Button())
-        self.client.myPublish(self.topic_pub,message)
+        valore=message['e'][0]['v']
+        requests.get(self.url_control+'/Emergency/'+str(self.kit)+'/'+str(valore))
 
-    def Press(self):
+    def Press(self):  
         self.Bottone.when_pressed=self.publish
         
 
@@ -81,10 +104,11 @@ class Control:
         
         
 if __name__=='__main__':
-    x=Control()
+    x=Control(1)
     x.start()
     while True:
         x.Press()
+        pass
 
 	
 
