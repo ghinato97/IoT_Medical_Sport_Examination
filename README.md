@@ -41,9 +41,19 @@ To install this project use these commands:
 $ git clone https://github.com/ghinato97/IoT_Medical_Sport_Examination
 $ cd ../path/to/the/file
 $ pip3 install -r requirements.txt 
+$ cd ../Catalog
 $ python3 M_Catalog_Rest.py
+$ cd ../Device_Connector
 $ python3 M_All_Sensor_Call.py
+$ python3 All_sensor_MQTT_TS_PUB.py
+$ cd ../Database
+$ python3 Database.py
+$ cd ../BPM
 $ python3 M_BPM.py
+$ cd ../Controllo_Emergency
+$ python3 Controllo_Emergency_Button.py
+$ cd ../Telegram_Bot
+$ python3 timer.py
 $ python3 Mexa_Bot_Telegram.py
 ```
 On your raspberry:
