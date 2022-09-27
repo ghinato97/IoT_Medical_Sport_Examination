@@ -35,6 +35,8 @@ The project is created using:
 - Ngrok
 - Telegram
 
+ ![Project Scheme](/image/Prpject Scheme.png)
+
 
 
 ## Set-up
