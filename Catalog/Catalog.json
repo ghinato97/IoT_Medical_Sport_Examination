@@ -1,10 +1,1 @@
-{"broker": {"IpAddress_TS": "mqtt3.thingspeak.com", "IpAddress": "broker.hivemq.com", "port": 1883, "topic": "IoT_Polito_Project/Sensor"}, 
-"thingSpeak": {"username": "IA0kIAMZEQkvEzUvCgc7OSk", "password": "EI3f2BAzpzicVlazeYqUPbnD", "channelID": [1789105, 1869608], "User_Api": "QCBRKNA5Z64ANK6V", "url": "https://api.thingspeak.com/channels/"}, "telegramToken": "5510740241:AAHWY4g3UOAOMhX1ZGo-t6tWgomBMiDaR-Y", 
-"Catalog_uri": "http://127.0.0.1:8090", 
-"url_pub": "http://127.0.0.1:8091",
- "url_temp": "http://127.0.0.1:8092", 
- "url_control": "http://127.0.0.1:8093", 
- "url_bot": "http://127.0.0.1:8094", 
- "Ngrok_url": "", 
- "devicesList": [], 
- "usersList": []}
+{"broker": {"IpAddress_TS": "mqtt3.thingspeak.com", "IpAddress": "broker.hivemq.com", "port": 1883, "topic": ""}, "thingSpeak": {"username": "", "password": "", "channelID": [], "User_Api": "", "url": "https://api.thingspeak.com/channels/"}, "telegramToken": "5510740241:AAHWY4g3UOAOMhX1ZGo-t6tWgomBMiDaR-Y", "Catalog_uri": "http://127.0.0.1:8090", "url_pub": "http://127.0.0.1:8091", "url_temp": "http://127.0.0.1:8092", "url_control": "https://677a-212-171-130-202.eu.ngrok.io", "url_bot": "http://127.0.0.1:8094", "Ngrok_url": "https://8e5e-212-171-130-202.eu.ngrok.io/ui", "devicesList": [], "usersList": []}
