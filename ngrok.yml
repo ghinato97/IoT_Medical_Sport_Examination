@@ -1,0 +1,13 @@
+version: "2"
+authtoken: 2CfTBkhUGbfFThoq1oonYgNY13c_3sYZ9HUGaN26j74XYLfRL
+tunnels:
+ first-app:
+    addr: 1880
+    proto: http
+ second-app:
+    addr: 8090
+    proto: http
+ third-app:
+    addr: 8093
+    proto: http
+
