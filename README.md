@@ -28,19 +28,31 @@ https://www.youtube.com/watch?v=tMEbXAjwmAI
 
 ## Technologies
 The project is created using:
-- Rasperry Pi 2
+- Rasperry Pi 2 (led, and a button; all the other sensors are simulated but you can integrate in your code)
 - Python 3
 - Node-red
 - Thingspeak
+- Ngrok
 - Telegram
 
 
+
 ## Set-up
+At first is mandatory to create a Telegram Bot using @BotFather telegram bot. Remember to save your telegram token.
+Then we have to make our local host public using ngrok. We need to make public our 8080 ,8081 and 1880 port of our local host.
+We provide a ``` ngrok.yml ``` that need to be replace in the folder  
+```
+/home/username/.config/ngrok
+```
 To install this project use these commands: 
 ```
 $ git clone https://github.com/ghinato97/IoT_Medical_Sport_Examination
 $ cd ../path/to/the/file
 $ pip3 install -r requirements.txt 
+```
+After that you need to add the new url  create by ngrok in the Catalog.json located in ```/Catalog``` and the run the others script:
+
+```
 $ cd ../Catalog
 $ python3 M_Catalog_Rest.py
 $ cd ../Device_Connector
@@ -56,8 +68,10 @@ $ cd ../Telegram_Bot
 $ python3 timer.py
 $ python3 Mexa_Bot_Telegram.py
 ```
+The folder ```Raspberry ```  must have to be located in the rasperry , in our case we put it in the Desktop 
 On your raspberry:
 ```
+$ $ cd Desktop/Rasperry
 $ python3 Controllo.py
 ```
 
