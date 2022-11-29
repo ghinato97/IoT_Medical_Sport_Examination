@@ -35,7 +35,7 @@ The project is created using:
 - Ngrok
 - Telegram
 
- ![Project Scheme](IoT_Medical_Sport_Examination/image/Prpject Scheme.png)
+ ![Project Scheme](IoT_Medical_Sport_Examination/image/PrpjectScheme.png)
 
 
 
