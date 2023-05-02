@@ -5,7 +5,7 @@
 
 
 ## General Info
-This is a repository for a IoT projectc calleD Mexa (Medical sport tele Examination).
+This is a repository for a IoT projectc called Mexa (Medical sport tele Examination).
 The proposed IoT platform aims at monitoring vital signs of the patient under stress condition during a sports medical examination in remote mode. 
 It integrates different IoT devices that provides us patient’s data such as:
 - Pulse Rate
